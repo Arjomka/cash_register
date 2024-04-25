@@ -29,3 +29,91 @@
 # Vārdnīcas - https://www.w3schools.com/python/python_dictionaries.asp
 # Klonēt repozitoriju - hhttps://code.visualstudio.com/docs/sourcecontrol/intro-to-git
 #
+produkts = []
+cenas = []
+names = []
+pass
+
+import json
+
+while True:
+    print("\nKases aparāta Menu:")
+    print("1. Pievienot precu")
+    print("2. Dzēst preci pēc numura")
+    print("3. Samaksāt")
+
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        while True:
+            name = input("Enter a precu nosaukums: ")
+            cena = float(input("Enter precu cena: "))
+            atlaide = float(input("Enter precu atlaide: "))
+            
+            if len(name) > 120 or len(name) < 2:
+                print("Kļuda, nosaukums nevar būt mazāk ka 2 un lielak ka 120")
+                break
+            if cena < 0:
+                print("Kļuda, cena nevar būt mazāk ka nule")
+                break
+            
+            if cena > 9999:
+                print("Kļuda, cena nevar būt lielak ka 9999")
+                break
+            if atlaide == 0:
+                atlaide + 1
+                produkt = {"Precu nosaukums": name, "Precu cena": cena, "Precu atlaide": atlaide }
+            
+            if atlaide > 0:
+                produkt = {"Precu nosaukums": name, "Precu cena": cena, "Precu atlaide": atlaide}
+            if atlaide < 0:
+                print("Kļuda, atldaide nevar būt mazāk ka nule")
+                break
+            
+            produkts.append(produkt)
+            cenas.append(cena)
+            names.append(name)
+            print(produkts)
+
+            pass
+            atbilde = input("vēl vairāk preču?: ")
+            if atbilde == "n":
+                break
+            if atbilde == "y":
+                pass
+    if choice == "2":
+        index_1 = int(input("Kuru produktu vēlaties dzēst?: "))
+        index_2 = index_1 - 1
+        produkts.pop(index_2)
+        print(produkts)
+        pass
+    if choice == "3":
+        suma = sum(cenas)
+        balance = float(input("Cik naudas jums ir?: "))
+        produkta_cena = cena / 100 * atlaide
+        pirkums = balance - produkta_cena
+        if pirkums < 0:
+            print("Nepietiek naudas")
+            break
+        if pirkums > 0:
+            print("Pirkums bija veiksmīgs, atlikums šeit ie čeks: ")
+            ček = {"Precu nosaukumi": names, "Precu cena bez atlaide": suma, "Precu cena": produkta_cena, "Atlikums":pirkums }
+            print(ček)
+            with open("produkts.json", "w") as outfile:
+                json.dump(ček, outfile)   
+            break
+
+    
+       
+  
+  
+
+
+            
+        
+
+        
+        
+        
+        
